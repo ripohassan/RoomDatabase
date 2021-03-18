@@ -12,13 +12,18 @@ import android.widget.TextView;
 
 import com.example.roomdatabase.adapter.UserInfoAdapter;
 import com.example.roomdatabase.database.DatabaseClient;
+import com.example.roomdatabase.listeners.ClickListener;
 import com.example.roomdatabase.model.UserInfo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserListActivity extends AppCompatActivity {
-RecyclerView userListView;
-TextView empty;
+    RecyclerView userListView;
+    TextView empty;
+   ArrayList<UserInfo> userInfo ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +35,18 @@ TextView empty;
     }
 
     private void initVariables() {
-
+        userInfo = new ArrayList<>();
 
     }
+
     private void initView() {
 
         empty = findViewById(R.id.empty);
         userListView = findViewById(R.id.userListView);
-        userListView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+       // llm.setReverseLayout(true);
+        userListView.setLayoutManager(llm);
+
 
     }
 
@@ -50,7 +59,7 @@ TextView empty;
     }
 
     private void getUserInfo() {
-        class GetTasks extends AsyncTask<Void, Void, List<UserInfo>> {
+        class GetTasks extends AsyncTask<Void, Void, List<UserInfo>>{
 
             @Override
             protected List<UserInfo> doInBackground(Void... voids) {
@@ -69,7 +78,10 @@ TextView empty;
                 userListView.setVisibility(View.VISIBLE);
                 UserInfoAdapter adapter = new UserInfoAdapter(UserListActivity.this, tasks);
                 userListView.setAdapter(adapter);
+
+
             }
+
         }
 
         GetTasks gt = new GetTasks();
