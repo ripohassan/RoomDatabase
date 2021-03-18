@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RoomDataBase</string>
+    <string name="email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="login">Login</string>
+    <string name="userList">User List</string>
+</resources>
